@@ -195,8 +195,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#basic-data-analysis-lesson-1" id="toc-basic-data-analysis-lesson-1" class="nav-link active" data-scroll-target="#basic-data-analysis-lesson-1">Basic data analysis | Lesson 1</a>
   <ul class="collapse">
   <li><a href="#the-dataset" id="toc-the-dataset" class="nav-link" data-scroll-target="#the-dataset">The dataset</a></li>
-  <li><a href="#the-experimental-design" id="toc-the-experimental-design" class="nav-link" data-scroll-target="#the-experimental-design">The experimental design</a></li>
-  <li><a href="#hands-on-exercises" id="toc-hands-on-exercises" class="nav-link" data-scroll-target="#hands-on-exercises">Hands-on exercises</a></li>
+  <li><a href="#about-the-experimental-design" id="toc-about-the-experimental-design" class="nav-link" data-scroll-target="#about-the-experimental-design">About the experimental design</a></li>
+  </ul></li>
+  <li><a href="#hands-on-exercises" id="toc-hands-on-exercises" class="nav-link" data-scroll-target="#hands-on-exercises">Hands-on exercises</a>
+  <ul class="collapse">
+  <li><a href="#create-a-new-project-in-rstudio" id="toc-create-a-new-project-in-rstudio" class="nav-link" data-scroll-target="#create-a-new-project-in-rstudio"><strong>Create a new project in RStudio</strong></a></li>
+  <li><a href="#load-data-and-inspect-it" id="toc-load-data-and-inspect-it" class="nav-link" data-scroll-target="#load-data-and-inspect-it"><strong>Load data and inspect it</strong></a></li>
+  <li><a href="#descriptive-statistics-and-plots-using-r" id="toc-descriptive-statistics-and-plots-using-r" class="nav-link" data-scroll-target="#descriptive-statistics-and-plots-using-r"><strong>Descriptive statistics and Plots using R</strong></a></li>
+  <li><a href="#how-is-the-variable-mouse-weight-distributed-in-each-diet-histograms" id="toc-how-is-the-variable-mouse-weight-distributed-in-each-diet-histograms" class="nav-link" data-scroll-target="#how-is-the-variable-mouse-weight-distributed-in-each-diet-histograms"><strong>How is the variable “mouse weight” distributed in each diet? | Histograms</strong></a></li>
+  <li><a href="#how-is-the-variable-mouse-weight-distributed-in-each-diet-boxplots" id="toc-how-is-the-variable-mouse-weight-distributed-in-each-diet-boxplots" class="nav-link" data-scroll-target="#how-is-the-variable-mouse-weight-distributed-in-each-diet-boxplots"><strong>How is the variable “mouse weight” distributed in each diet? | Boxplots</strong></a></li>
+  <li><a href="#how-are-the-other-variables-distributed" id="toc-how-are-the-other-variables-distributed" class="nav-link" data-scroll-target="#how-are-the-other-variables-distributed"><strong>How are the other variables distributed?</strong></a></li>
+  <li><a href="#what-is-the-frequency-of-each-variable" id="toc-what-is-the-frequency-of-each-variable" class="nav-link" data-scroll-target="#what-is-the-frequency-of-each-variable"><strong>What is the frequency of each variable?</strong></a></li>
+  <li><a href="#bivariate-analysis-linear-regression-and-correlation-coefficient" id="toc-bivariate-analysis-linear-regression-and-correlation-coefficient" class="nav-link" data-scroll-target="#bivariate-analysis-linear-regression-and-correlation-coefficient"><strong>Bivariate Analysis | Linear regression and Correlation coefficient</strong></a></li>
+  <li><a href="#hypothesis-testing-and-statistical-significance-using-r" id="toc-hypothesis-testing-and-statistical-significance-using-r" class="nav-link" data-scroll-target="#hypothesis-testing-and-statistical-significance-using-r"><strong>Hypothesis testing and Statistical significance using R</strong></a></li>
+  <li><a href="#now-that-we-have-calculated-the-t-test-shall-we-accept-or-reject-the-null-hypothesis-what-are-the-outputs-in-r-from-the-t-test" id="toc-now-that-we-have-calculated-the-t-test-shall-we-accept-or-reject-the-null-hypothesis-what-are-the-outputs-in-r-from-the-t-test" class="nav-link" data-scroll-target="#now-that-we-have-calculated-the-t-test-shall-we-accept-or-reject-the-null-hypothesis-what-are-the-outputs-in-r-from-the-t-test">Now that we have calculated the T-test, shall we accept or reject the null hypothesis? What are the outputs in R from the t-test?</a></li>
+  <li><a href="#final-discussion" id="toc-final-discussion" class="nav-link" data-scroll-target="#final-discussion"><strong>Final discussion</strong></a></li>
   </ul></li>
   </ul>
 </nav>
@@ -225,10 +238,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="basic-data-analysis-lesson-1">Basic data analysis | Lesson 1</h2>
 <section id="the-dataset" class="level3">
 <h3 class="anchored" data-anchor-id="the-dataset">The dataset</h3>
-<p>The scientific experiment | Imagine that you are interested in determining the effects of a high-fat diet on gene expression. For this study, the scientists obtained data from 60 mice, where half were fed a lean-diet, and the other half a high-fat diet. All other living conditions were the same. Four weeks after, a biopsy of the mice’s liver was sequenced by RNA-seq, and all mice were weighted, and the sex and age were also recorded. The results from this analysis are saved in <em>diet_mice_metadata.txt</em> file, and the gene counts are in the file <em>diet_mice_counts.xlsx</em>.</p>
+<p><strong>The scientific experiment</strong> | Imagine that you are interested in determining the effects of a high-fat diet on gene expression. For this study, the scientists obtained data from 60 mice, where half were fed a lean-diet, and the other half a high-fat diet. All other living conditions were the same. Four weeks after, a biopsy of the mice’s liver was sequenced by RNA-seq, and all mice were weighted, and the sex and age were also recorded. The results from this analysis are saved in <em>diet_mice_metadata.txt</em> file, and the gene counts are in the file <em>diet_mice_counts.xlsx</em>.</p>
 </section>
-<section id="the-experimental-design" class="level3">
-<h3 class="anchored" data-anchor-id="the-experimental-design">The experimental design</h3>
+<section id="about-the-experimental-design" class="level3">
+<h3 class="anchored" data-anchor-id="about-the-experimental-design">About the experimental design</h3>
 <ul>
 <li>What is the research question? What is the hypothesis?</li>
 <li>How many variables are in the study?</li>
@@ -238,14 +251,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Are the “controls” appropriate? Why?</li>
 </ul>
 </section>
-<section id="hands-on-exercises" class="level3">
-<h3 class="anchored" data-anchor-id="hands-on-exercises">Hands-on exercises</h3>
-<section id="create-a-new-r-script-file" class="level4">
-<h4 class="anchored" data-anchor-id="create-a-new-r-script-file"><strong>Create a new R script file</strong></h4>
-<p>In order to save your work, you must create a new R script file. Go to <code>File &gt; New File &gt; R Script</code>. A blank text file will appear above the console. Save it in your project folder.</p>
 </section>
-<section id="load-data-and-inspect-it" class="level4">
-<h4 class="anchored" data-anchor-id="load-data-and-inspect-it"><strong>Load data and inspect it</strong></h4>
+<section id="hands-on-exercises" class="level2">
+<h2 class="anchored" data-anchor-id="hands-on-exercises">Hands-on exercises</h2>
+<section id="create-a-new-project-in-rstudio" class="level3">
+<h3 class="anchored" data-anchor-id="create-a-new-project-in-rstudio"><strong>Create a new project in RStudio</strong></h3>
+<p>Start by creating a new project in RStudio. Go to <code>File &gt; New project</code>, and follow the instructions.<br>
+Once you have are in the project folder, create a new R script file. Go to <code>File &gt; New File &gt; R Script</code>. A blank text file will appear above the console. Save it in your project folder.</p>
+</section>
+<section id="load-data-and-inspect-it" class="level3">
+<h3 class="anchored" data-anchor-id="load-data-and-inspect-it"><strong>Load data and inspect it</strong></h3>
 <ol type="1">
 <li>Download the file <code>diet_mice_metadata.txt</code> (mice weights according to diet) from GitHub.<br>
 </li>
@@ -356,8 +371,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p><br></p>
 </section>
-<section id="descriptive-statistics-and-plots-using-r" class="level4">
-<h4 class="anchored" data-anchor-id="descriptive-statistics-and-plots-using-r"><strong>Descriptive statistics and Plots using R</strong></h4>
+<section id="descriptive-statistics-and-plots-using-r" class="level3">
+<h3 class="anchored" data-anchor-id="descriptive-statistics-and-plots-using-r"><strong>Descriptive statistics and Plots using R</strong></h3>
 <p>Now, we should look at the <strong>distributions</strong> of the variables. First we will use <strong>descriptive statistics</strong> that summarize the sample data. We will use measures of central tendency — <strong>Mean, Median, and Mode</strong> —, and measures of dispersion (or variability) — <strong>Standard Deviation, Variance, Maximum, and Minimum</strong>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary statistics per type of diet - min, max, median, average, standard deviation and variance </span></span>
@@ -402,8 +417,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p><br></p>
 </section>
-<section id="how-is-the-variable-mouse-weight-distributed-in-each-diet-histograms" class="level4">
-<h4 class="anchored" data-anchor-id="how-is-the-variable-mouse-weight-distributed-in-each-diet-histograms"><strong>How is the variable “mouse weight” distributed in each diet? | Histograms</strong></h4>
+<section id="how-is-the-variable-mouse-weight-distributed-in-each-diet-histograms" class="level3">
+<h3 class="anchored" data-anchor-id="how-is-the-variable-mouse-weight-distributed-in-each-diet-histograms"><strong>How is the variable “mouse weight” distributed in each diet? | Histograms</strong></h3>
 <p>After summarizing the data, we should find appropriate plots to look at it. A first approach is to look at the frequency of the mouse weight values per diet using a <strong>histogram</strong>.</p>
 <p><strong>Recall</strong> | Histograms plot the distribution of a continuous variable (x-axis), in which the data is divided into a set of intervals (or bins), and the count (or frequency) of observations falling into each bin is plotted as the height of the bar.</p>
 <div class="cell">
@@ -441,8 +456,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p><br></p>
 </section>
-<section id="how-is-the-variable-mouse-weight-distributed-in-each-diet-boxplots" class="level4">
-<h4 class="anchored" data-anchor-id="how-is-the-variable-mouse-weight-distributed-in-each-diet-boxplots"><strong>How is the variable “mouse weight” distributed in each diet? | Boxplots</strong></h4>
+<section id="how-is-the-variable-mouse-weight-distributed-in-each-diet-boxplots" class="level3">
+<h3 class="anchored" data-anchor-id="how-is-the-variable-mouse-weight-distributed-in-each-diet-boxplots"><strong>How is the variable “mouse weight” distributed in each diet? | Boxplots</strong></h3>
 <p>Since our data of interest is one <strong>categorical variable</strong> (type of diet), and one <strong>continuous variable</strong> (weight), a <strong>boxplot</strong> is one of the most informative.</p>
 <p><strong>Note</strong> | A <strong>boxplot</strong> represents the distribution of a continuous variable. The box in the middle represents the <strong>interquartile range (IQR)</strong>, which is the range of values from the first quartile to the third quartile, and the <strong>line inside the box</strong> represents the <strong>median</strong> value (i.e.&nbsp;the second quartile). The lines extending from the box are called <strong>whiskers</strong>, and represent the range of the data outside the box, i.e.&nbsp;the <strong>maximum</strong> and the <strong>minimum</strong>, excluding any outliers, which are shown as points outside the whiskers (not present in this dataset). <strong>Outliers</strong> are defined as values that are more than 1.5 times the IQR below the first quartile or above the third quartile.</p>
 <div class="cell">
@@ -463,8 +478,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="how-are-the-other-variables-distributed" class="level4">
-<h4 class="anchored" data-anchor-id="how-are-the-other-variables-distributed"><strong>How are the other variables distributed?</strong></h4>
+<section id="how-are-the-other-variables-distributed" class="level3">
+<h3 class="anchored" data-anchor-id="how-are-the-other-variables-distributed"><strong>How are the other variables distributed?</strong></h3>
 <p>There are other variables in our data for each mouse that could influence the results, namely <strong>gender</strong> (categorical variable) and <strong>age</strong> (discrete variable). We should also look at these data.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create table with weights per gender</span></span>
@@ -496,8 +511,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="what-is-the-frequency-of-each-variable" class="level4">
-<h4 class="anchored" data-anchor-id="what-is-the-frequency-of-each-variable"><strong>What is the frequency of each variable?</strong></h4>
+<section id="what-is-the-frequency-of-each-variable" class="level3">
+<h3 class="anchored" data-anchor-id="what-is-the-frequency-of-each-variable"><strong>What is the frequency of each variable?</strong></h3>
 <p>When exploring the results of an experiment, we want to learn about the variables measured (age, gender, weight), and how many observations we have for each variable (number of females, number of males …), or combination of variables, for example, number of females in lean diet. This is easily done by using the function <code>table</code>. This function outputs a frequency table, i.e.&nbsp;the frequency (counts) of all combinations of the variables of interest.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># How many measurements do we have for each gender (a categorical variable)</span></span>
@@ -597,8 +612,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p><br></p>
 </section>
-<section id="bivariate-analysis-linear-regression-and-correlation-coefficient" class="level4">
-<h4 class="anchored" data-anchor-id="bivariate-analysis-linear-regression-and-correlation-coefficient"><strong>Bivariate Analysis | Linear regression and Correlation coefficient</strong></h4>
+<section id="bivariate-analysis-linear-regression-and-correlation-coefficient" class="level3">
+<h3 class="anchored" data-anchor-id="bivariate-analysis-linear-regression-and-correlation-coefficient"><strong>Bivariate Analysis | Linear regression and Correlation coefficient</strong></h3>
 <p><strong>Is there a dependency between the age and the weight of the mice in our study?</strong></p>
 <p>To test if two variables are correlated we will start by (1) making a scatter plot of these two variables, followed by a calculation of the Pearson correlation coefficient, and finally by fitting a linear model to the data to evaluate how the weight changes depending on the age of the mice.</p>
 <div class="cell">
@@ -650,8 +665,8 @@ Coefficients:
 </div>
 <p><br></p>
 </section>
-<section id="hypothesis-testing-and-statistical-significance-using-r" class="level4">
-<h4 class="anchored" data-anchor-id="hypothesis-testing-and-statistical-significance-using-r"><strong>Hypothesis testing and Statistical significance using R</strong></h4>
+<section id="hypothesis-testing-and-statistical-significance-using-r" class="level3">
+<h3 class="anchored" data-anchor-id="hypothesis-testing-and-statistical-significance-using-r"><strong>Hypothesis testing and Statistical significance using R</strong></h3>
 <p>Going back to our original question: <em>Does the type of diet influence the body weight of mice?</em><br>
 Can we answer this question just by looking at the plot? Are these observations compatible with a scenario where <strong>the type of diet does not influence body weight?</strong></p>
 <p>Remember the basic statistical methods:</p>
@@ -692,8 +707,8 @@ mean of x mean of y
 </div>
 <p><br></p>
 </section>
-<section id="now-that-we-have-calculated-the-t-test-shall-we-accept-or-reject-the-null-hypothesis-what-are-the-outputs-in-r-from-the-t-test" class="level4">
-<h4 class="anchored" data-anchor-id="now-that-we-have-calculated-the-t-test-shall-we-accept-or-reject-the-null-hypothesis-what-are-the-outputs-in-r-from-the-t-test">Now that we have calculated the T-test, shall we accept or reject the null hypothesis? What are the outputs in R from the t-test?</h4>
+<section id="now-that-we-have-calculated-the-t-test-shall-we-accept-or-reject-the-null-hypothesis-what-are-the-outputs-in-r-from-the-t-test" class="level3">
+<h3 class="anchored" data-anchor-id="now-that-we-have-calculated-the-t-test-shall-we-accept-or-reject-the-null-hypothesis-what-are-the-outputs-in-r-from-the-t-test">Now that we have calculated the T-test, shall we accept or reject the null hypothesis? What are the outputs in R from the t-test?</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the names of the output from the function t.test</span></span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(ttest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -709,8 +724,8 @@ mean of x mean of y
 </div>
 <p><br></p>
 </section>
-<section id="final-discussion" class="level4">
-<h4 class="anchored" data-anchor-id="final-discussion"><strong>Final discussion</strong></h4>
+<section id="final-discussion" class="level3">
+<h3 class="anchored" data-anchor-id="final-discussion"><strong>Final discussion</strong></h3>
 <blockquote class="blockquote">
 <blockquote class="blockquote">
 <p>Take some time to discuss the results with the other participants, and decide if H0 should be rejected or not, and how confident you are that your decision is reasonable. Can you propose solutions to improve your confidence on the results? Is the experimental design appropriate for the research question being asked? Is this experiment well controlled and balanced?</p>
@@ -718,7 +733,6 @@ mean of x mean of y
 </blockquote>
 
 
-</section>
 </section>
 </section>
 
