@@ -1,0 +1,414 @@
+---
+title: "Day1"
+---
+
+## Basic data analysis \| Lesson 1
+
+### Learning Objectives
+1. How to import datasets into R.\
+2. Conduct descriptive statistics on the dataset to explore the data.\
+3. Basic data visualization with histograms, boxplots, and scatterplots.\
+4. How to calculate the correlation between 2 (numerical) variables.\
+5. How to make a simple linear regression, and plot the line in the scatterplot.\
+6. Conduct a t-test for basic hypothesis testing.\
+7. Recognize the differences between base R plotting and using the ggplots2 package.
+
+### The dataset
+
+**The scientific experiment** \| Imagine that you are interested in determining the effects of a high-fat diet on gene expression. For this study, the scientists obtained data from 60 mice, where half were fed a lean-diet, and the other half a high-fat diet. All other living conditions were the same. Four weeks after, a biopsy of the mice's liver was sequenced by RNA-seq, and all mice were weighted, and the sex and age were also recorded. The results from this analysis are saved in *diet_mice_metadata.txt* file, and the gene counts are in the file *diet_mice_counts.xlsx*.
+
+### About the experimental design
+
+-   What is the research question? What is the hypothesis?
+-   How many variables are in the study?
+-   Which variable(s) are dependent? (Dependent or Response variables are the variables that we are interested in predicting or explaining.)
+-   Which variable(s) are independent? (Independent or Explanatory variables are used to explain or predict the dependent variable.)
+-   Which variable(s) are covariates? (Covariates are variables that are potentially related to the outcome of interest in a study, but are not the main variable under study - used to control for potential confounding factors in a study.)
+-   Are the "controls" appropriate? Why?
+
+## Hands-on exercises
+
+We will start by looking at the `metadata file` containing the variables related to each sample (i.e. each mouse): `type of diet, final weight, gender, and age in months`. 
+
+
+### **Create a new project in RStudio**
+
+Start by creating a new project in RStudio. Go to `File > New project`, and follow the instructions.\
+Once you have are in the project folder, create a new R script file. Go to `File > New File > R Script`. A blank text file will appear above the console. Save it in your project folder with the name `diet_analysis.R`.
+
+### **Load data and inspect it**
+
+1.  Download the file `diet_mice_metadata.txt` (mice weights according to diet) from GitHub [https://github.com/patterninstitute/rmind-workshop/blob/main/data/diet_mice_metadata.txt](https://github.com/patterninstitute/rmind-workshop/blob/main/data/diet_mice_metadata.txt).\
+2.  Save the file in your current working directory where the RProject was created inside a folder named `data`.\
+3.  Type the instructions inside grey boxes in pane number 2 of RStudio --- the R Console. As you already know, the words after a `#` sign are comments not interpreted by R, so you do not need to copy them.
+    -   In the **R console**, you must hit **`enter` after each command** to obtain the result.\
+    -   In the **script file** (R file), you must **`run`** the command by **pressing the run button** (on the top panel), or by **selecting the code** you want to run **and pressing `ctrl + enter`**.\
+4.  Save all your relevant/final commands (R instructions) to your script file to be available for later use.
+
+```{r}
+#| label: dataload
+#| eval: true
+#| warning: false
+
+# Load required packages
+library(tidyverse)     # to ease data wrangling and visualization
+library(here)          # to help with file paths 
+library(RColorBrewer)  # color palettes
+library(patchwork)     # combine plots in panels for figures
+
+# Load the file and save it to object mice_data
+mice_data <- read.table(file=here("data/diet_mice_metadata.txt"), 
+                        header = TRUE,
+                        sep = "\t", dec = ".",
+                        stringsAsFactors = TRUE)
+```
+
+```{r}
+#| label: viewData
+#| eval: false
+
+# Briefly explore the dataset
+View (mice_data)       # Open a tab in RStudio showing the whole table
+```
+
+```{r}
+#| label: exploreData
+#| eval: true
+
+head (mice_data, 10)   # Show the first 10 rows
+tail (mice_data, 10)   # Show the last 10 rows
+str(mice_data)         # Describe the class of each column in the dataset
+summary (mice_data)    # Get the summary statistics for all columns
+```
+
+To facilitate further analysis, we will create 2 separate data frames: one for each type of diet.
+
+```{r}
+#| label: createTables
+#| eval: true
+
+# Filter the diet column by lean or fat and save results in a data frame
+lean <- subset (mice_data, diet == "lean")
+fat <- subset (mice_data, diet == "fat")
+
+# Look at the new tables
+head (lean)
+head (fat)
+```
+
+<br>
+
+### **Descriptive statistics and Plots using R**
+
+Now, we should look at the **distributions** of the variables. First we will use **descriptive statistics** that summarize the sample data. We will use measures of central tendency --- **Mean, Median, and Mode** ---, and measures of dispersion (or variability) --- **Standard Deviation, Variance, Maximum, and Minimum**.
+
+```{r}
+#| label: descStat
+#| eval: true
+
+# Summary statistics per type of diet - min, max, median, average, standard deviation and variance 
+summary(lean)      # quartiles, median, mean, max and min
+sd (lean$weight)   # standard deviation of the weight
+var(lean$weight)   # variance of the weight (var=sd^2)
+
+summary(fat)
+sd (fat$weight)   
+var(fat$weight)
+
+# The same using tidyverse style programming
+mice_data %>%
+  group_by(diet) %>%
+  summarise(sd = sd(weight))
+
+```
+
+<br>
+
+### **How is the variable "mouse weight" distributed in each diet? \| Histograms**
+
+After summarizing the data, we should find appropriate plots to look at it. A first approach is to look at the frequency of the mouse weight values per diet using a **histogram**.
+
+**Recall** \| Histograms plot the distribution of a continuous variable (x-axis), in which the data is divided into a set of intervals (or bins), and the count (or frequency) of observations falling into each bin is plotted as the height of the bar.
+
+```{r}
+#| label: histogram
+#| eval: true
+
+# Histogram using base R plotting functions
+hist(lean$weight,
+     xlab = "Mouse weight",                         
+     main = "Lean Diet | Histogram of mouse weight", 
+     col = brewer.pal(5, "YlOrRd"))   # using 5 colors of the Yellow to Red palette
+
+# Make the same plot for the fat diet, using our own colors
+   # to see the other color names: colors()
+hist(fat$weight,
+     xlab = "Mouse weight",
+     main = "Fat Diet | Histogram of mouse weight", 
+      col = brewer.pal(5, "Greens"))
+
+# Plot both histograms in same image
+par(mfrow=c(1,2))   # set the parameters for the number of rows and columns of plots
+
+hist(lean$weight, col = brewer.pal(5, "YlOrRd"),
+     xlab = "Mouse weight",                            
+     main = "Lean Diet | Histogram of weight")
+
+hist(fat$weight,
+     xlab = "Mouse weight",
+     main = "Fat Diet | Histogram of weight", 
+     col = brewer.pal(5, "Greens"))
+
+# Similar plot, but using ggplot2
+mice_data %>%
+  filter(diet == "lean") %>%
+  ggplot(mapping = aes(weight)) +
+  geom_histogram(binwidth = 1, fill = "seagreen3" ) -> p_hist_lean
+
+mice_data %>%
+  filter(diet == "fat") %>%
+  ggplot(mapping = aes(weight)) +
+  geom_histogram(binwidth = 2, fill = "skyblue") -> p_hist_fat
+
+p_hist_lean + p_hist_fat
+
+```
+
+<br>
+
+### **How is the variable "mouse weight" distributed in each diet? \| Boxplots**
+
+Since our data of interest is one **categorical variable** (type of diet), and one **continuous variable** (weight), a **boxplot** is one of the most informative.
+
+**Note** \| A **boxplot** represents the distribution of a continuous variable. The box in the middle represents the **interquartile range (IQR)**, which is the range of values from the first quartile to the third quartile, and the **line inside the box** represents the **median** value (i.e. the second quartile). The lines extending from the box are called **whiskers**, and represent the range of the data outside the box, i.e. the **maximum** and the **minimum**, excluding any outliers, which are shown as points outside the whiskers (not present in this dataset). **Outliers** are defined as values that are more than 1.5 times the IQR below the first quartile or above the third quartile.
+
+```{r}
+#| label: boxPlot
+#| eval: true
+
+# Box and whiskers plot 
+boxplot(lean$weight, fat$weight, col=c("lightpink", "lightgreen"),
+        names=c("Lean diet", "Fat diet"),
+        ylab="Mouse weight (g)",
+        ylim = c(5, 40))   # setting the limits of the y axis
+
+# Plot individual points and add them to the boxplot
+   # pch is the point character, i.e. the symbol used for the points
+stripchart(list(lean$weight, fat$weight),
+           vertical = TRUE, method = "stack",
+           pch = 21, col="grey42", bg="lightgrey",  
+           add = TRUE)
+
+
+# Similar, but using ggplo2
+mice_data %>%
+  ggplot(mapping=(aes(x=diet,y=weight))) +
+  geom_boxplot(aes(fill=diet)) +
+  geom_jitter(width=0.1, size=2, alpha=0.6)
+  
+  
+```
+
+### **How are the other variables distributed?**
+
+There are other variables in our data for each mouse that could influence the results, namely **gender** (categorical variable) and **age** (discrete variable). We should also look at these data.
+
+```{r}
+#| label: viewExtraData
+#| eval: true
+
+# create table with weights per gender
+females <- subset (mice_data, gender == "F")
+males <- subset (mice_data, gender == "M")
+
+# Box and whiskers plot
+boxplot(lean$weight, fat$weight, females$weight, males$weight,
+        ylim = c(5, 40),
+        col=c("lightpink", "lightgreen", "skyblue", "orange"),
+        names=c("Lean diet", "Fat diet", "Females", "Males"),
+        ylab="Mouse weight (g)", main = "Boxplot of mice weight")
+
+# Plot individual points and add them to the boxplot
+stripchart(list(lean$weight, fat$weight, females$weight, males$weight),
+           vertical = TRUE, method = "jitter",
+           pch = 21, col="grey42", bg="grey80",
+           add = TRUE)
+
+# Look at the distribution of age
+hist(mice_data$age_months, 
+     xlab="Age (months)", 
+     col = brewer.pal(5, "Pastel1"),
+     main="Histogram of mice age")
+
+
+# Similar, but using ggplot and an interaction term (which is what we are really interested in looking at)
+mice_data %>%
+  ggplot(mapping = aes(x=interaction(diet,gender),y=weight)) +
+  geom_boxplot(aes(fill=interaction(diet,gender))) +
+  geom_jitter(width=0.1, size=2, alpha=0.6)
+
+# What if we want violin plots?
+mice_data %>%
+  ggplot(mapping = aes(x=interaction(diet,gender),y=weight)) +
+  geom_violin(aes(fill=interaction(diet,gender))) +
+  geom_jitter(width=0.1, size=2, alpha=0.6)
+
+```
+
+### **What is the frequency of each variable?**
+
+When exploring the results of an experiment, we want to learn about the variables measured (age, gender, weight), and how many observations we have for each variable (number of females, number of males ...), or combination of variables, for example, number of females in lean diet. This is easily done by using the R base function `table`. This function outputs a frequency table, i.e. the frequency (counts) of all combinations of the variables of interest.
+
+```{r}
+#| label: freq_table
+#| eval: true
+
+# How many measurements do we have for each gender (a categorical variable)
+table(mice_data$gender)
+
+# How many measurements do we have for each diet (a categorical variable)
+table(mice_data$diet)
+
+# How many measurements do we have for each gender in each diet? (Count the number of observations in the combination between the two categorical variables).
+table(mice_data$diet, mice_data$gender)
+
+# We can also use this for numerical discrete variables, like age.
+# How many measurements of each age (a discrete variable) do we have by gender? 
+table(mice_data$age_months, mice_data$gender)
+
+# And by diet type? 
+table(mice_data$age_months, mice_data$diet)
+
+# What if we want to know the results for each of the three variables: age, diet and gender?
+   # Using ftable instead of table to format the output in a more friendly way
+ftable(mice_data$age_months, mice_data$diet, mice_data$gender)
+
+# Doing a similar analysis, using tidyverse programming style
+mice_data %>%
+  group_by(age_months, diet, gender) %>%
+  count()
+
+```
+
+<br>
+
+### **Bivariate Analysis \| Linear regression and Correlation coefficient**
+
+**Is there a dependency between the age and the weight of the mice in our study?**
+
+To test if two variables are correlated we will start by (1) making a scatter plot of these two variables, followed by a calculation of the Pearson correlation coefficient, and finally by fitting a linear model to the data to evaluate how the weight changes depending on the age of the mice.
+
+```{r}
+#| label: correlation
+#| eval: true
+
+# Create the vectors with the variables of interest
+my.weight <- mice_data$weight 
+my.age <- mice_data$age_months
+
+# Step1: scatter plot of age and weight 
+# Note that the dependent variable is the weight, so it should be in the y axis, while the independent variable should be in the x axis.
+plot(mice_data$age_months, mice_data$weight,
+     ylab = "Weight (g)",
+     xlab = "Age (months)", 
+     pch = 19)  # character used for the points
+
+# Step2: Calculate the Pearson coefficient of correlation (r)
+my.correlation <- cor(my.weight, my.age, method = "pearson")
+my.correlation
+
+# Step3: fit a linear model (using the function lm) and 
+# draw it on the scatter plot (using the function abline)
+  # NOTE: "my.weight ~ my.age" can be read as "my.weight is modeled as a function of my.age" or 
+  # "my.weight is explained by my.age".
+  # When using lm() for linear regression, the "y ~ x" formula indicates that 
+  # y is the dependent variable and x is the independent variable.
+
+my.lm <- lm (my.weight ~ my.age)
+
+# Plot the fitted line on the scatter plot
+plot(mice_data$age_months, mice_data$weight, 
+     ylab = "Weight (g) [Dependent variable]", xlab = "Age (months) [Independent variable]", pch = 19, 
+     col = c(rep("lightgreen", 30), rep("orange", 30)))   # color the points from lean and fat diet
+
+# add the line to the plot
+abline(my.lm, col="grey50", lwd=2)
+
+# add a legend to the plot
+legend(30, 14, legend=c("Lean diet", "Fat diet"),
+       col=c("lightgreen", "orange"), pch=19)
+
+# Similar visualiztion using ggplot
+mice_data %>%
+  ggplot(mapping = aes(x=age_months,y=weight))+
+  geom_point(aes(fill=diet), shape=21, size=2) +
+  geom_smooth(method = "lm", se=TRUE, color="grey30") # se is the shaded confidence interval
+
+# Now making a linear fit per diet type
+mice_data %>%
+  ggplot(mapping = aes(x=age_months,y=weight))+
+  geom_point(aes(fill=diet), shape=21, size=2) +
+  geom_smooth(aes(group=diet, color=diet),method = "lm", se=FALSE)
+
+```
+
+<br>
+
+### **Hypothesis testing and Statistical significance using R**
+
+Going back to our original question: *Does the type of diet influence the body weight of mice?*\
+Can we answer this question just by looking at the plot? Are these observations compatible with a scenario where **the type of diet does not influence body weight?**
+
+Remember the basic statistical methods:
+
+![](images/statistic-types.png){width="600px"}
+
+Here enters **hypothesis testing**. In hypothesis testing, the investigator formulates a **null hypothesis (H0)** that usually states that *there is no difference between the two groups*, i.e. the observed weight differences between the two groups of mice occurred only due to sampling fluctuations (like when you repeat an experiment drawing samples from the same population). In other words, H0 corresponds to an absence of effect.\
+The **alternative hypothesis (H1)**, just states that the *effect is present between the two groups*, i.e. that the samples were taken from different populations.
+
+Hypothesis testing proceeds with using a **statistical test to try and reject H0**. For this experiment, we will use a *T-test that compares the difference between the means of the two diet groups*, yielding a p-value that we will use to decide if we reject the null hypothesis, at a 5% significance level (p-value \< 0.05). Meaning that, if we repeat this experiment 100 times in different mice, in 5 of those experiments we will reject the null hypothesis, even thought the null hypothesis is true.
+
+```{r}
+#| label: hypothesis
+#| eval: true
+
+# Apply a T-test to the lean and fat diet weights 
+
+### Explanation of the arguments used ###
+  # alternative="two.sided" :  two-sided because we want to test any difference between the means, and not only weight gain or weight loss (in which case it would be a one-sided test)
+
+  # paired = FALSE : because we measured the weight in 2 different groups of mice (never the same individual). If we measure a variable 2 times in the same individual the data would be paired.
+
+  # var.equal = TRUE : T-tests apply to equal variance data, so we assume it is TRUE and ask R to estimate the variance (if we chose FALSE, then R uses another similar method called Welch (or Satterthwaite) approximation) 
+
+ttest <- t.test(lean$weight, fat$weight,
+                alternative="two.sided", 
+                paired = FALSE, 
+                var.equal = TRUE)
+
+# Print the results
+ttest
+```
+
+<br>
+
+### Now that we have calculated the T-test, shall we accept or reject the null hypothesis? What are the outputs in R from the t-test?
+
+```{r}
+#| label: ttest
+#| eval: true
+
+# Find the names of the output from the function t.test
+names(ttest)
+
+# Extract just the p-value
+ttest$p.value
+
+
+```
+
+<br>
+
+### **Final discussion**
+
+> > Take some time to discuss the results with the other participants, and decide if H0 should be rejected or not, and how confident you are that your decision is reasonable. Can you propose solutions to improve your confidence on the results? Is the experimental design appropriate for the research question being asked? Is this experiment well controlled and balanced?

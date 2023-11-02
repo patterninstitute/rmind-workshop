@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>R-Mind - Tidy data &amp; Visualization with R</title>
+<title>R-Mind - ggplot2</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -158,14 +158,27 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#fundamentals" id="toc-fundamentals" class="nav-link active" data-scroll-target="#fundamentals">Fundamentals</a>
+  <ul class="collapse">
+  <li><a href="#tidy-data-cleaning-and-formatting-your-data" id="toc-tidy-data-cleaning-and-formatting-your-data" class="nav-link" data-scroll-target="#tidy-data-cleaning-and-formatting-your-data">0. Tidy data | Cleaning and formatting your data</a></li>
+  <li><a href="#creating-plots-using-ggplot2" id="toc-creating-plots-using-ggplot2" class="nav-link" data-scroll-target="#creating-plots-using-ggplot2">1. Creating plots | Using ggplot2</a></li>
+  <li><a href="#combining-plots-using-patchwork" id="toc-combining-plots-using-patchwork" class="nav-link" data-scroll-target="#combining-plots-using-patchwork">2. Combining plots | Using patchwork</a></li>
+  <li><a href="#principles-of-effective-data-visualization-common-mistakes-to-avoid" id="toc-principles-of-effective-data-visualization-common-mistakes-to-avoid" class="nav-link" data-scroll-target="#principles-of-effective-data-visualization-common-mistakes-to-avoid">3. Principles of Effective Data Visualization &amp; Common Mistakes to Avoid</a></li>
+  <li><a href="#illustrations-from-the-web" id="toc-illustrations-from-the-web" class="nav-link" data-scroll-target="#illustrations-from-the-web">Illustrations from the web</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Tidy data &amp; Visualization with R</h1>
+<h1 class="title">ggplot2</h1>
 </div>
 
 
@@ -180,9 +193,108 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p><a href="https://rmagno.eu/tdvr.oct.22/">Tidy data &amp; Visualization with R</a></p>
+<section id="fundamentals" class="level2">
+<h2 class="anchored" data-anchor-id="fundamentals">Fundamentals</h2>
+<section id="tidy-data-cleaning-and-formatting-your-data" class="level3">
+<h3 class="anchored" data-anchor-id="tidy-data-cleaning-and-formatting-your-data">0. Tidy data | Cleaning and formatting your data</h3>
+<p>Any data analysis pipeline starts by <strong>tidying your data</strong>, which is the process of cleaning, transforming, and reorganizing data to make it suitable for analysis and visualization.</p>
+<p><img src="images/tidydata_1.jpg" class="img-fluid" style="width:75.0%"></p>
+<p><br></p>
+</section>
+<section id="creating-plots-using-ggplot2" class="level3">
+<h3 class="anchored" data-anchor-id="creating-plots-using-ggplot2">1. Creating plots | Using ggplot2</h3>
+<p>ggplot2 is a popular package for data visualization in R. It is based on the “grammar of graphics” framework, which emphasizes the modular construction of a plot using different layers and components (<a href="https://ggplot2.tidyverse.org/">ggplot2 online documentation here</a>).</p>
+<p>The <strong>basic syntax of ggplot2</strong> involves three main components:</p>
+<ul>
+<li>the data,<br>
+</li>
+<li>the aesthetics (<code>aes()</code>),<br>
+</li>
+<li>and the geometric objects (<code>geom()</code>).</li>
+</ul>
+<p><br></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/grammar-of-graphics.png" class="img-fluid figure-img" style="width:75.0%"></p>
+<figcaption class="figure-caption">From: https://github.com/rfortherestofus/fundamentals</figcaption>
+</figure>
+</div>
+<p><br></p>
+</section>
+<section id="combining-plots-using-patchwork" class="level3">
+<h3 class="anchored" data-anchor-id="combining-plots-using-patchwork">2. Combining plots | Using patchwork</h3>
+<p><strong>patchwork</strong> is an R package that provides a simple way to combine multiple plots created with ggplot2 into a single panel or figure. It allows users to create complex and customized layouts of multiple plots, arranged in rows or columns, and adding labels or titles to the panel (<a href="https://patchwork.data-imaginist.com/index.html">patchwork online documentation here</a>).</p>
+<ul>
+<li>The plots are combined and their layout is defined using the following symbols:
+<ul>
+<li><code>+</code> (combine the plots in a square grid shape, e.g.&nbsp;2x2, or 3x3);<br>
+</li>
+<li><code>|</code> (place plots next to each other into equal sized grid portions);<br>
+</li>
+<li><code>/</code> (place plots on top of each other).<br>
+</li>
+<li><code>()</code> (group the plots into a single portion of the grid).</li>
+</ul></li>
+<li><strong>Example:</strong> plot1 | (plot2 / plot3)</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/patchwork_panel_example.png" class="img-fluid figure-img" style="width:75.0%"></p>
+<figcaption class="figure-caption">From: https://patchwork.data-imaginist.com/articles/patchwork.html</figcaption>
+</figure>
+</div>
+<p><br></p>
+</section>
+<section id="principles-of-effective-data-visualization-common-mistakes-to-avoid" class="level3">
+<h3 class="anchored" data-anchor-id="principles-of-effective-data-visualization-common-mistakes-to-avoid">3. Principles of Effective Data Visualization &amp; Common Mistakes to Avoid</h3>
+<p>Three <strong>key principles of effective data visualization</strong> are:</p>
+<ul>
+<li><strong>Clarity</strong> | A good data visualization should be easy to understand, with clear labels, axes, and legends that explain what the data represents.</li>
+<li><strong>Simplicity</strong> | Visualizations should be simple, avoiding unnecessary clutter or visual noise that can distract from the main message. Remember: <em>“Less is more.”</em></li>
+<li><strong>Honesty</strong> | Data visualizations should accurately represent the data being presented, avoiding misleading or deceptive representations that can distort or misrepresent the data.</li>
+</ul>
+<p>In addition to these key principles, it’s important to be aware of some <strong>common mistakes to avoid</strong> when creating data visualizations:</p>
+<ul>
+<li><strong>Distorting the data</strong> | Visualizations should accurately represent the data being presented, without distorting or misrepresenting the underlying information.</li>
+<li><strong>Using inappropriate visual encoding</strong> | Choosing the wrong type of chart or visual encoding can lead to confusion or misinterpretation of the data.</li>
+<li><strong>Failing to consider the audience</strong> | It’s important to consider who your audience is and what information they need to understand the data being presented.</li>
+</ul>
+<p>To learn more about data visualization and ggplot2, here are some additional resources:</p>
+<ul>
+<li><a href="https://www.storytellingwithdata.com/">Storytelling with Data by Cole Nussbaumer Knaflic</a></li>
+<li><a href="https://r-graph-gallery.com/index.html">R Graph Gallery</a></li>
+</ul>
+<p><br></p>
+<hr>
+</section>
+<section id="illustrations-from-the-web" class="level3">
+<h3 class="anchored" data-anchor-id="illustrations-from-the-web">Illustrations from the web</h3>
+<ul>
+<li><a href="https://www.rforecology.com/post/a-simple-introduction-to-ggplot2/" class="uri">https://www.rforecology.com/post/a-simple-introduction-to-ggplot2/</a></li>
+<li><a href="https://rfortherestofus.github.io/fundamentals/slides/data-visualization-slides.html#4" class="uri">https://rfortherestofus.github.io/fundamentals/slides/data-visualization-slides.html#4</a><br>
+</li>
+<li><a href="https://ouyanglab.com/covid19dataviz/ggplot2.html" class="uri">https://ouyanglab.com/covid19dataviz/ggplot2.html</a></li>
+</ul>
+<section id="tidy-data" class="level4">
+<h4 class="anchored" data-anchor-id="tidy-data">Tidy data</h4>
+<p><img src="images/ggplot_tidy_data.png" class="img-fluid"></p>
+</section>
+<section id="ggplot2-geoms" class="level4">
+<h4 class="anchored" data-anchor-id="ggplot2-geoms">ggplot2 geoms</h4>
+<p><img src="images/ggplot_geoms.png" class="img-fluid"></p>
+</section>
+<section id="ggplot2-summary" class="level4">
+<h4 class="anchored" data-anchor-id="ggplot2-summary">ggplot2 summary</h4>
+<p><img src="images/ggplot_simplified.png" class="img-fluid" style="width:75.0%"></p>
+</section>
+<section id="ggplot2-grammar" class="level4">
+<h4 class="anchored" data-anchor-id="ggplot2-grammar">ggplot2 grammar</h4>
+<p><img src="images/ggplot_grammar.png" class="img-fluid"></p>
 
 
+</section>
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

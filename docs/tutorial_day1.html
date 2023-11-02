@@ -166,6 +166,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="./4_tidy_data_visualization.html" rel="" target="">
  <span class="dropdown-text">Tidy data &amp; Visualization with R</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./5_ggplot_intro.html" rel="" target="">
+ <span class="dropdown-text">ggplot2</span></a>
+  </li>  
     </ul>
   </li>
   <li class="nav-item">
@@ -196,21 +200,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#learning-objectives" id="toc-learning-objectives" class="nav-link" data-scroll-target="#learning-objectives">Learning Objectives</a></li>
   <li><a href="#the-dataset" id="toc-the-dataset" class="nav-link" data-scroll-target="#the-dataset">The dataset</a></li>
-  <li><a href="#about-the-experimental-design" id="toc-about-the-experimental-design" class="nav-link" data-scroll-target="#about-the-experimental-design">About the experimental design</a></li>
   </ul></li>
   <li><a href="#hands-on-exercises" id="toc-hands-on-exercises" class="nav-link" data-scroll-target="#hands-on-exercises">Hands-on exercises</a>
   <ul class="collapse">
-  <li><a href="#create-a-new-project-in-rstudio" id="toc-create-a-new-project-in-rstudio" class="nav-link" data-scroll-target="#create-a-new-project-in-rstudio"><strong>Create a new project in RStudio</strong></a></li>
-  <li><a href="#load-data-and-inspect-it" id="toc-load-data-and-inspect-it" class="nav-link" data-scroll-target="#load-data-and-inspect-it"><strong>Load data and inspect it</strong></a></li>
-  <li><a href="#descriptive-statistics-and-plots-using-r" id="toc-descriptive-statistics-and-plots-using-r" class="nav-link" data-scroll-target="#descriptive-statistics-and-plots-using-r"><strong>Descriptive statistics and Plots using R</strong></a></li>
-  <li><a href="#how-is-the-variable-mouse-weight-distributed-in-each-diet-histograms" id="toc-how-is-the-variable-mouse-weight-distributed-in-each-diet-histograms" class="nav-link" data-scroll-target="#how-is-the-variable-mouse-weight-distributed-in-each-diet-histograms"><strong>How is the variable “mouse weight” distributed in each diet? | Histograms</strong></a></li>
-  <li><a href="#how-is-the-variable-mouse-weight-distributed-in-each-diet-boxplots" id="toc-how-is-the-variable-mouse-weight-distributed-in-each-diet-boxplots" class="nav-link" data-scroll-target="#how-is-the-variable-mouse-weight-distributed-in-each-diet-boxplots"><strong>How is the variable “mouse weight” distributed in each diet? | Boxplots</strong></a></li>
-  <li><a href="#how-are-the-other-variables-distributed" id="toc-how-are-the-other-variables-distributed" class="nav-link" data-scroll-target="#how-are-the-other-variables-distributed"><strong>How are the other variables distributed?</strong></a></li>
-  <li><a href="#what-is-the-frequency-of-each-variable" id="toc-what-is-the-frequency-of-each-variable" class="nav-link" data-scroll-target="#what-is-the-frequency-of-each-variable"><strong>What is the frequency of each variable?</strong></a></li>
-  <li><a href="#bivariate-analysis-linear-regression-and-correlation-coefficient" id="toc-bivariate-analysis-linear-regression-and-correlation-coefficient" class="nav-link" data-scroll-target="#bivariate-analysis-linear-regression-and-correlation-coefficient"><strong>Bivariate Analysis | Linear regression and Correlation coefficient</strong></a></li>
-  <li><a href="#hypothesis-testing-and-statistical-significance-using-r" id="toc-hypothesis-testing-and-statistical-significance-using-r" class="nav-link" data-scroll-target="#hypothesis-testing-and-statistical-significance-using-r"><strong>Hypothesis testing and Statistical significance using R</strong></a></li>
-  <li><a href="#now-that-we-have-calculated-the-t-test-shall-we-accept-or-reject-the-null-hypothesis-what-are-the-outputs-in-r-from-the-t-test" id="toc-now-that-we-have-calculated-the-t-test-shall-we-accept-or-reject-the-null-hypothesis-what-are-the-outputs-in-r-from-the-t-test" class="nav-link" data-scroll-target="#now-that-we-have-calculated-the-t-test-shall-we-accept-or-reject-the-null-hypothesis-what-are-the-outputs-in-r-from-the-t-test">Now that we have calculated the T-test, shall we accept or reject the null hypothesis? What are the outputs in R from the t-test?</a></li>
-  <li><a href="#final-discussion" id="toc-final-discussion" class="nav-link" data-scroll-target="#final-discussion"><strong>Final discussion</strong></a></li>
+  <li><a href="#a.-create-a-new-project-in-rstudio" id="toc-a.-create-a-new-project-in-rstudio" class="nav-link" data-scroll-target="#a.-create-a-new-project-in-rstudio">A. Create a new project in RStudio</a></li>
+  <li><a href="#b.-load-the-data-and-inspect-it" id="toc-b.-load-the-data-and-inspect-it" class="nav-link" data-scroll-target="#b.-load-the-data-and-inspect-it">B. Load the data and inspect it</a></li>
+  <li><a href="#c.-answer-the-following-questions-using-r" id="toc-c.-answer-the-following-questions-using-r" class="nav-link" data-scroll-target="#c.-answer-the-following-questions-using-r">C. Answer the following questions using R</a></li>
+  <li><a href="#final-discussion" id="toc-final-discussion" class="nav-link" data-scroll-target="#final-discussion">Final discussion</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -258,9 +254,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="the-dataset" class="level3">
 <h3 class="anchored" data-anchor-id="the-dataset">The dataset</h3>
 <p><strong>The scientific experiment</strong> | Imagine that you are interested in determining the effects of a high-fat diet on gene expression. For this study, the scientists obtained data from 60 mice, where half were fed a lean-diet, and the other half a high-fat diet. All other living conditions were the same. Four weeks after, a biopsy of the mice’s liver was sequenced by RNA-seq, and all mice were weighted, and the sex and age were also recorded. The results from this analysis are saved in <em>diet_mice_metadata.txt</em> file, and the gene counts are in the file <em>diet_mice_counts.xlsx</em>.</p>
-</section>
-<section id="about-the-experimental-design" class="level3">
-<h3 class="anchored" data-anchor-id="about-the-experimental-design">About the experimental design</h3>
+<section id="think-about-the-experimental-design" class="level4">
+<h4 class="anchored" data-anchor-id="think-about-the-experimental-design">Think about the experimental design</h4>
 <ul>
 <li>What is the research question? What is the hypothesis?</li>
 <li>How many variables are in the study?</li>
@@ -271,16 +266,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 </section>
 </section>
+</section>
 <section id="hands-on-exercises" class="level2">
 <h2 class="anchored" data-anchor-id="hands-on-exercises">Hands-on exercises</h2>
 <p>We will start by looking at the <code>metadata file</code> containing the variables related to each sample (i.e.&nbsp;each mouse): <code>type of diet, final weight, gender, and age in months</code>.</p>
-<section id="create-a-new-project-in-rstudio" class="level3">
-<h3 class="anchored" data-anchor-id="create-a-new-project-in-rstudio"><strong>Create a new project in RStudio</strong></h3>
+<section id="a.-create-a-new-project-in-rstudio" class="level3">
+<h3 class="anchored" data-anchor-id="a.-create-a-new-project-in-rstudio">A. Create a new project in RStudio</h3>
 <p>Start by creating a new project in RStudio. Go to <code>File &gt; New project</code>, and follow the instructions.<br>
 Once you have are in the project folder, create a new R script file. Go to <code>File &gt; New File &gt; R Script</code>. A blank text file will appear above the console. Save it in your project folder with the name <code>diet_analysis.R</code>.</p>
 </section>
-<section id="load-data-and-inspect-it" class="level3">
-<h3 class="anchored" data-anchor-id="load-data-and-inspect-it"><strong>Load data and inspect it</strong></h3>
+<section id="b.-load-the-data-and-inspect-it" class="level3">
+<h3 class="anchored" data-anchor-id="b.-load-the-data-and-inspect-it">B. Load the data and inspect it</h3>
 <ol type="1">
 <li>Download the file <code>diet_mice_metadata.txt</code> (mice weights according to diet) from GitHub <a href="https://github.com/patterninstitute/rmind-workshop/blob/main/data/diet_mice_metadata.txt">https://github.com/patterninstitute/rmind-workshop/blob/main/data/diet_mice_metadata.txt</a>.<br>
 </li>
@@ -308,535 +304,54 @@ Once you have are in the project folder, create a new R script file. Go to <code
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>                        <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, <span class="at">dec =</span> <span class="st">"."</span>,</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>                        <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Briefly explore the dataset</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">View</span> (mice_data)       <span class="co"># Open a tab in RStudio showing the whole table</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> (mice_data, <span class="dv">10</span>)   <span class="co"># Show the first 10 rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   sample_id diet weight gender age_months
-1      mus01 lean  24.02      F         19
-2      mus02 lean  21.79      F         17
-3      mus03 lean  23.90      F         20
-4      mus04 lean  11.15      M         10
-5      mus05 lean  17.73      F         15
-6      mus06 lean  12.89      M         12
-7      mus07 lean  20.12      F         16
-8      mus08 lean  23.04      F         18
-9      mus09 lean  22.84      F         19
-10     mus10 lean  18.92      M         15</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span> (mice_data, <span class="dv">10</span>)   <span class="co"># Show the last 10 rows</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   sample_id diet weight gender age_months
-51     mus51  fat  23.75      M         18
-52     mus52  fat  21.84      M         17
-53     mus53  fat  26.60      F         20
-54     mus54  fat  21.13      M         17
-55     mus55  fat  24.20      M         19
-56     mus56  fat  30.69      M         23
-57     mus57  fat  23.99      F         18
-58     mus58  fat  19.35      M         17
-59     mus59  fat  26.37      F         22
-60     mus60  fat  28.84      M         20</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(mice_data)         <span class="co"># Describe the class of each column in the dataset</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>'data.frame':   60 obs. of  5 variables:
- $ sample_id : Factor w/ 60 levels "mus01","mus02",..: 1 2 3 4 5 6 7 8 9 10 ...
- $ diet      : Factor w/ 2 levels "fat","lean": 2 2 2 2 2 2 2 2 2 2 ...
- $ weight    : num  24 21.8 23.9 11.2 17.7 ...
- $ gender    : Factor w/ 2 levels "F","M": 1 1 1 2 1 2 1 1 1 2 ...
- $ age_months: int  19 17 20 10 15 12 16 18 19 15 ...</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span> (mice_data)    <span class="co"># Get the summary statistics for all columns</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   sample_id    diet        weight      gender   age_months   
- mus01  : 1   fat :30   Min.   :10.62   F:30   Min.   :10.00  
- mus02  : 1   lean:30   1st Qu.:19.24   M:30   1st Qu.:17.00  
- mus03  : 1             Median :22.79          Median :18.00  
- mus04  : 1             Mean   :22.43          Mean   :17.98  
- mus05  : 1             3rd Qu.:25.63          3rd Qu.:20.00  
- mus06  : 1             Max.   :34.76          Max.   :24.00  
- (Other):54                                                   </code></pre>
-</div>
-</div>
-<p>To facilitate further analysis, we will create 2 separate data frames: one for each type of diet.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter the diet column by lean or fat and save results in a data frame</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>lean <span class="ot">&lt;-</span> <span class="fu">subset</span> (mice_data, diet <span class="sc">==</span> <span class="st">"lean"</span>)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>fat <span class="ot">&lt;-</span> <span class="fu">subset</span> (mice_data, diet <span class="sc">==</span> <span class="st">"fat"</span>)</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at the new tables</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> (lean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  sample_id diet weight gender age_months
-1     mus01 lean  24.02      F         19
-2     mus02 lean  21.79      F         17
-3     mus03 lean  23.90      F         20
-4     mus04 lean  11.15      M         10
-5     mus05 lean  17.73      F         15
-6     mus06 lean  12.89      M         12</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span> (fat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   sample_id diet weight gender age_months
-31     mus31  fat  15.67      F         14
-32     mus32  fat  28.18      M         22
-33     mus33  fat  29.50      M         22
-34     mus34  fat  23.89      M         20
-35     mus35  fat  21.61      F         18
-36     mus36  fat  25.53      M         21</code></pre>
-</div>
-</div>
+</section>
+<section id="c.-answer-the-following-questions-using-r" class="level3">
+<h3 class="anchored" data-anchor-id="c.-answer-the-following-questions-using-r">C. Answer the following questions using R</h3>
+<section id="briefly-explore-the-dataset." class="level4">
+<h4 class="anchored" data-anchor-id="briefly-explore-the-dataset.">1. Briefly explore the dataset.</h4>
+<p>We should use descriptive statistics that summarize the sample data. We will use measures of central tendency — <em>Mean, Median, and Mode</em> —, and measures of dispersion (or variability) — <em>Standard Deviation, Variance, Maximum, and Minimum</em>.</p>
+</section>
+<section id="how-is-the-variable-mouse-weight-distributed" class="level4">
+<h4 class="anchored" data-anchor-id="how-is-the-variable-mouse-weight-distributed">2. How is the variable “mouse weight” distributed?</h4>
+<p>After summarizing the data, we should find appropriate plots to look at it. A first approach is to look at the frequency of the mouse weight values using a histogram.</p>
+</section>
+<section id="how-is-the-variable-mouse-weight-distributed-in-each-diet" class="level4">
+<h4 class="anchored" data-anchor-id="how-is-the-variable-mouse-weight-distributed-in-each-diet">3. How is the variable “mouse weight” distributed in each diet?</h4>
+<p>Since our data of interest is one categorical variable (type of diet), and one continuous variable (weight), a boxplot is one of the most informative.</p>
+</section>
+<section id="how-are-the-other-variables-distributed" class="level4">
+<h4 class="anchored" data-anchor-id="how-are-the-other-variables-distributed">4. How are the other variables distributed?</h4>
+<p>There are other variables in our data for each mouse that could influence the results, namely gender (categorical variable) and age (discrete variable). We should also look at these data.</p>
+</section>
+<section id="what-is-the-frequency-of-each-variable" class="level4">
+<h4 class="anchored" data-anchor-id="what-is-the-frequency-of-each-variable">5. What is the frequency of each variable?</h4>
+<ul>
+<li>5.1 How many measurements do we have for each gender?</li>
+<li>5.2 How many measurements do we have for each diet?</li>
+<li>5.3 How many measurements do we have for each gender in each diet?</li>
+<li>5.4 What if we want to know the results for each of the three variables: age, diet, and gender?</li>
+</ul>
+</section>
+<section id="is-there-a-dependency-between-the-age-and-the-weight-of-the-mice-in-our-study" class="level4">
+<h4 class="anchored" data-anchor-id="is-there-a-dependency-between-the-age-and-the-weight-of-the-mice-in-our-study">6. Is there a dependency between the age and the weight of the mice in our study?</h4>
+</section>
+<section id="is-the-correlation-between-the-age-and-the-weight-of-the-mice-different-for-males-and-females" class="level4">
+<h4 class="anchored" data-anchor-id="is-the-correlation-between-the-age-and-the-weight-of-the-mice-different-for-males-and-females">7. Is the correlation between the age and the weight of the mice different for males and females?</h4>
+</section>
+<section id="is-the-correlation-between-the-age-and-the-weight-of-the-mice-different-for-different-diets" class="level4">
+<h4 class="anchored" data-anchor-id="is-the-correlation-between-the-age-and-the-weight-of-the-mice-different-for-different-diets">8. Is the correlation between the age and the weight of the mice different for different diets?</h4>
+</section>
+<section id="does-the-type-of-diet-influence-the-body-weight-of-mice" class="level4">
+<h4 class="anchored" data-anchor-id="does-the-type-of-diet-influence-the-body-weight-of-mice">9. Does the type of diet influence the body weight of mice?</h4>
+<p>Can we answer this question just by looking at the plot? Are these observations compatible with a scenario where <em>the type of diet does not influence body weight?</em></p>
 <p><br></p>
 </section>
-<section id="descriptive-statistics-and-plots-using-r" class="level3">
-<h3 class="anchored" data-anchor-id="descriptive-statistics-and-plots-using-r"><strong>Descriptive statistics and Plots using R</strong></h3>
-<p>Now, we should look at the <strong>distributions</strong> of the variables. First we will use <strong>descriptive statistics</strong> that summarize the sample data. We will use measures of central tendency — <strong>Mean, Median, and Mode</strong> —, and measures of dispersion (or variability) — <strong>Standard Deviation, Variance, Maximum, and Minimum</strong>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Summary statistics per type of diet - min, max, median, average, standard deviation and variance </span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lean)      <span class="co"># quartiles, median, mean, max and min</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   sample_id    diet        weight      gender   age_months   
- mus01  : 1   fat : 0   Min.   :10.62   F:20   Min.   :10.00  
- mus02  : 1   lean:30   1st Qu.:17.86   M:10   1st Qu.:15.00  
- mus03  : 1             Median :20.86          Median :17.00  
- mus04  : 1             Mean   :20.37          Mean   :16.77  
- mus05  : 1             3rd Qu.:23.03          3rd Qu.:18.75  
- mus06  : 1             Max.   :30.12          Max.   :22.00  
- (Other):24                                                   </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span> (lean<span class="sc">$</span>weight)   <span class="co"># standard deviation of the weight</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 4.86655</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(lean<span class="sc">$</span>weight)   <span class="co"># variance of the weight (var=sd^2)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 23.68331</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   sample_id    diet        weight      gender   age_months   
- mus31  : 1   fat :30   Min.   :15.46   F:10   Min.   :14.00  
- mus32  : 1   lean: 0   1st Qu.:21.71   M:20   1st Qu.:18.00  
- mus33  : 1             Median :24.11          Median :19.00  
- mus34  : 1             Mean   :24.50          Mean   :19.20  
- mus35  : 1             3rd Qu.:27.79          3rd Qu.:20.75  
- mus36  : 1             Max.   :34.76          Max.   :24.00  
- (Other):24                                                   </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span> (fat<span class="sc">$</span>weight)   </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 4.484297</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(fat<span class="sc">$</span>weight)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 20.10892</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The same using tidyverse style programming</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>mice_data <span class="sc">%&gt;%</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(diet) <span class="sc">%&gt;%</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">sd =</span> <span class="fu">sd</span>(weight))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 2 × 2
-  diet     sd
-  &lt;fct&gt; &lt;dbl&gt;
-1 fat    4.48
-2 lean   4.87</code></pre>
-</div>
-</div>
-<p><br></p>
+<section id="now-that-we-have-calculated-the-t-test-shall-we-accept-or-reject-the-null-hypothesis-what-are-the-outputs-in-r-from-the-t-test" class="level4">
+<h4 class="anchored" data-anchor-id="now-that-we-have-calculated-the-t-test-shall-we-accept-or-reject-the-null-hypothesis-what-are-the-outputs-in-r-from-the-t-test">10. Now that we have calculated the T-test, shall we accept or reject the null hypothesis? What are the outputs in R from the t-test?</h4>
 </section>
-<section id="how-is-the-variable-mouse-weight-distributed-in-each-diet-histograms" class="level3">
-<h3 class="anchored" data-anchor-id="how-is-the-variable-mouse-weight-distributed-in-each-diet-histograms"><strong>How is the variable “mouse weight” distributed in each diet? | Histograms</strong></h3>
-<p>After summarizing the data, we should find appropriate plots to look at it. A first approach is to look at the frequency of the mouse weight values per diet using a <strong>histogram</strong>.</p>
-<p><strong>Recall</strong> | Histograms plot the distribution of a continuous variable (x-axis), in which the data is divided into a set of intervals (or bins), and the count (or frequency) of observations falling into each bin is plotted as the height of the bar.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Histogram using base R plotting functions</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(lean<span class="sc">$</span>weight,</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Mouse weight"</span>,                         </span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Lean Diet | Histogram of mouse weight"</span>, </span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="fu">brewer.pal</span>(<span class="dv">5</span>, <span class="st">"YlOrRd"</span>))   <span class="co"># using 5 colors of the Yellow to Red palette</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="tutorial_day1_files/figure-html/histogram-1.png" class="img-fluid" width="672"></p>
-</div>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Make the same plot for the fat diet, using our own colors</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>   <span class="co"># to see the other color names: colors()</span></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(fat<span class="sc">$</span>weight,</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Mouse weight"</span>,</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Fat Diet | Histogram of mouse weight"</span>, </span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">col =</span> <span class="fu">brewer.pal</span>(<span class="dv">5</span>, <span class="st">"Greens"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="tutorial_day1_files/figure-html/histogram-2.png" class="img-fluid" width="672"></p>
-</div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot both histograms in same image</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))   <span class="co"># set the parameters for the number of rows and columns of plots</span></span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(lean<span class="sc">$</span>weight, <span class="at">col =</span> <span class="fu">brewer.pal</span>(<span class="dv">5</span>, <span class="st">"YlOrRd"</span>),</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Mouse weight"</span>,                            </span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Lean Diet | Histogram of weight"</span>)</span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(fat<span class="sc">$</span>weight,</span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Mouse weight"</span>,</span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Fat Diet | Histogram of weight"</span>, </span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="fu">brewer.pal</span>(<span class="dv">5</span>, <span class="st">"Greens"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="tutorial_day1_files/figure-html/histogram-3.png" class="img-fluid" width="672"></p>
-</div>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Similar plot, but using ggplot2</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>mice_data <span class="sc">%&gt;%</span></span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(diet <span class="sc">==</span> <span class="st">"lean"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(weight)) <span class="sc">+</span></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>, <span class="at">fill =</span> <span class="st">"seagreen3"</span> ) <span class="ot">-&gt;</span> p_hist_lean</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>mice_data <span class="sc">%&gt;%</span></span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(diet <span class="sc">==</span> <span class="st">"fat"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(weight)) <span class="sc">+</span></span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">2</span>, <span class="at">fill =</span> <span class="st">"skyblue"</span>) <span class="ot">-&gt;</span> p_hist_fat</span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>p_hist_lean <span class="sc">+</span> p_hist_fat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="tutorial_day1_files/figure-html/histogram-4.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p><br></p>
-</section>
-<section id="how-is-the-variable-mouse-weight-distributed-in-each-diet-boxplots" class="level3">
-<h3 class="anchored" data-anchor-id="how-is-the-variable-mouse-weight-distributed-in-each-diet-boxplots"><strong>How is the variable “mouse weight” distributed in each diet? | Boxplots</strong></h3>
-<p>Since our data of interest is one <strong>categorical variable</strong> (type of diet), and one <strong>continuous variable</strong> (weight), a <strong>boxplot</strong> is one of the most informative.</p>
-<p><strong>Note</strong> | A <strong>boxplot</strong> represents the distribution of a continuous variable. The box in the middle represents the <strong>interquartile range (IQR)</strong>, which is the range of values from the first quartile to the third quartile, and the <strong>line inside the box</strong> represents the <strong>median</strong> value (i.e.&nbsp;the second quartile). The lines extending from the box are called <strong>whiskers</strong>, and represent the range of the data outside the box, i.e.&nbsp;the <strong>maximum</strong> and the <strong>minimum</strong>, excluding any outliers, which are shown as points outside the whiskers (not present in this dataset). <strong>Outliers</strong> are defined as values that are more than 1.5 times the IQR below the first quartile or above the third quartile.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Box and whiskers plot </span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(lean<span class="sc">$</span>weight, fat<span class="sc">$</span>weight, <span class="at">col=</span><span class="fu">c</span>(<span class="st">"lightpink"</span>, <span class="st">"lightgreen"</span>),</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">names=</span><span class="fu">c</span>(<span class="st">"Lean diet"</span>, <span class="st">"Fat diet"</span>),</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab=</span><span class="st">"Mouse weight (g)"</span>,</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">40</span>))   <span class="co"># setting the limits of the y axis</span></span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot individual points and add them to the boxplot</span></span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>   <span class="co"># pch is the point character, i.e. the symbol used for the points</span></span>
-<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="fu">stripchart</span>(<span class="fu">list</span>(lean<span class="sc">$</span>weight, fat<span class="sc">$</span>weight),</span>
-<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">vertical =</span> <span class="cn">TRUE</span>, <span class="at">method =</span> <span class="st">"stack"</span>,</span>
-<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">pch =</span> <span class="dv">21</span>, <span class="at">col=</span><span class="st">"grey42"</span>, <span class="at">bg=</span><span class="st">"lightgrey"</span>,  </span>
-<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>           <span class="at">add =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="tutorial_day1_files/figure-html/boxPlot-1.png" class="img-fluid" width="672"></p>
-</div>
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Similar, but using ggplo2</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>mice_data <span class="sc">%&gt;%</span></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping=</span>(<span class="fu">aes</span>(<span class="at">x=</span>diet,<span class="at">y=</span>weight))) <span class="sc">+</span></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">fill=</span>diet)) <span class="sc">+</span></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width=</span><span class="fl">0.1</span>, <span class="at">size=</span><span class="dv">2</span>, <span class="at">alpha=</span><span class="fl">0.6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="tutorial_day1_files/figure-html/boxPlot-2.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-</section>
-<section id="how-are-the-other-variables-distributed" class="level3">
-<h3 class="anchored" data-anchor-id="how-are-the-other-variables-distributed"><strong>How are the other variables distributed?</strong></h3>
-<p>There are other variables in our data for each mouse that could influence the results, namely <strong>gender</strong> (categorical variable) and <strong>age</strong> (discrete variable). We should also look at these data.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create table with weights per gender</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>females <span class="ot">&lt;-</span> <span class="fu">subset</span> (mice_data, gender <span class="sc">==</span> <span class="st">"F"</span>)</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>males <span class="ot">&lt;-</span> <span class="fu">subset</span> (mice_data, gender <span class="sc">==</span> <span class="st">"M"</span>)</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Box and whiskers plot</span></span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(lean<span class="sc">$</span>weight, fat<span class="sc">$</span>weight, females<span class="sc">$</span>weight, males<span class="sc">$</span>weight,</span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">40</span>),</span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">col=</span><span class="fu">c</span>(<span class="st">"lightpink"</span>, <span class="st">"lightgreen"</span>, <span class="st">"skyblue"</span>, <span class="st">"orange"</span>),</span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">names=</span><span class="fu">c</span>(<span class="st">"Lean diet"</span>, <span class="st">"Fat diet"</span>, <span class="st">"Females"</span>, <span class="st">"Males"</span>),</span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab=</span><span class="st">"Mouse weight (g)"</span>, <span class="at">main =</span> <span class="st">"Boxplot of mice weight"</span>)</span>
-<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot individual points and add them to the boxplot</span></span>
-<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a><span class="fu">stripchart</span>(<span class="fu">list</span>(lean<span class="sc">$</span>weight, fat<span class="sc">$</span>weight, females<span class="sc">$</span>weight, males<span class="sc">$</span>weight),</span>
-<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>           <span class="at">vertical =</span> <span class="cn">TRUE</span>, <span class="at">method =</span> <span class="st">"jitter"</span>,</span>
-<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>           <span class="at">pch =</span> <span class="dv">21</span>, <span class="at">col=</span><span class="st">"grey42"</span>, <span class="at">bg=</span><span class="st">"grey80"</span>,</span>
-<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>           <span class="at">add =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="tutorial_day1_files/figure-html/viewExtraData-1.png" class="img-fluid" width="672"></p>
-</div>
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Look at the distribution of age</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(mice_data<span class="sc">$</span>age_months, </span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">"Age (months)"</span>, </span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="fu">brewer.pal</span>(<span class="dv">5</span>, <span class="st">"Pastel1"</span>),</span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="st">"Histogram of mice age"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="tutorial_day1_files/figure-html/viewExtraData-2.png" class="img-fluid" width="672"></p>
-</div>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Similar, but using ggplot and an interaction term (which is what we are really interested in looking at)</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>mice_data <span class="sc">%&gt;%</span></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">interaction</span>(diet,gender),<span class="at">y=</span>weight)) <span class="sc">+</span></span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(<span class="at">fill=</span><span class="fu">interaction</span>(diet,gender))) <span class="sc">+</span></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width=</span><span class="fl">0.1</span>, <span class="at">size=</span><span class="dv">2</span>, <span class="at">alpha=</span><span class="fl">0.6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="tutorial_day1_files/figure-html/viewExtraData-3.png" class="img-fluid" width="672"></p>
-</div>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># What if we want violin plots?</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>mice_data <span class="sc">%&gt;%</span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">interaction</span>(diet,gender),<span class="at">y=</span>weight)) <span class="sc">+</span></span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="fu">aes</span>(<span class="at">fill=</span><span class="fu">interaction</span>(diet,gender))) <span class="sc">+</span></span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width=</span><span class="fl">0.1</span>, <span class="at">size=</span><span class="dv">2</span>, <span class="at">alpha=</span><span class="fl">0.6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="tutorial_day1_files/figure-html/viewExtraData-4.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-</section>
-<section id="what-is-the-frequency-of-each-variable" class="level3">
-<h3 class="anchored" data-anchor-id="what-is-the-frequency-of-each-variable"><strong>What is the frequency of each variable?</strong></h3>
-<p>When exploring the results of an experiment, we want to learn about the variables measured (age, gender, weight), and how many observations we have for each variable (number of females, number of males …), or combination of variables, for example, number of females in lean diet. This is easily done by using the R base function <code>table</code>. This function outputs a frequency table, i.e.&nbsp;the frequency (counts) of all combinations of the variables of interest.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># How many measurements do we have for each gender (a categorical variable)</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(mice_data<span class="sc">$</span>gender)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
- F  M 
-30 30 </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># How many measurements do we have for each diet (a categorical variable)</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(mice_data<span class="sc">$</span>diet)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
- fat lean 
-  30   30 </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># How many measurements do we have for each gender in each diet? (Count the number of observations in the combination between the two categorical variables).</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(mice_data<span class="sc">$</span>diet, mice_data<span class="sc">$</span>gender)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>      
-        F  M
-  fat  10 20
-  lean 20 10</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We can also use this for numerical discrete variables, like age.</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="co"># How many measurements of each age (a discrete variable) do we have by gender? </span></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(mice_data<span class="sc">$</span>age_months, mice_data<span class="sc">$</span>gender)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>    
-     F M
-  10 1 1
-  12 0 2
-  14 3 0
-  15 3 2
-  16 1 0
-  17 7 5
-  18 4 5
-  19 4 3
-  20 3 4
-  21 1 3
-  22 3 3
-  23 0 1
-  24 0 1</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># And by diet type? </span></span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(mice_data<span class="sc">$</span>age_months, mice_data<span class="sc">$</span>diet)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>    
-     fat lean
-  10   0    2
-  12   0    2
-  14   2    1
-  15   1    4
-  16   0    1
-  17   3    9
-  18   6    3
-  19   4    3
-  20   6    1
-  21   1    3
-  22   5    1
-  23   1    0
-  24   1    0</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># What if we want to know the results for each of the three variables: age, diet and gender?</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>   <span class="co"># Using ftable instead of table to format the output in a more friendly way</span></span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ftable</span>(mice_data<span class="sc">$</span>age_months, mice_data<span class="sc">$</span>diet, mice_data<span class="sc">$</span>gender)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>         F M
-            
-10 fat   0 0
-   lean  1 1
-12 fat   0 0
-   lean  0 2
-14 fat   2 0
-   lean  1 0
-15 fat   1 0
-   lean  2 2
-16 fat   0 0
-   lean  1 0
-17 fat   0 3
-   lean  7 2
-18 fat   2 4
-   lean  2 1
-19 fat   1 3
-   lean  3 0
-20 fat   2 4
-   lean  1 0
-21 fat   0 1
-   lean  1 2
-22 fat   2 3
-   lean  1 0
-23 fat   0 1
-   lean  0 0
-24 fat   0 1
-   lean  0 0</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Doing a similar analysis, using tidyverse programming style</span></span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>mice_data <span class="sc">%&gt;%</span></span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(age_months, diet, gender) <span class="sc">%&gt;%</span></span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 30 × 4
-# Groups:   age_months, diet, gender [30]
-   age_months diet  gender     n
-        &lt;int&gt; &lt;fct&gt; &lt;fct&gt;  &lt;int&gt;
- 1         10 lean  F          1
- 2         10 lean  M          1
- 3         12 lean  M          2
- 4         14 fat   F          2
- 5         14 lean  F          1
- 6         15 fat   F          1
- 7         15 lean  F          2
- 8         15 lean  M          2
- 9         16 lean  F          1
-10         17 fat   M          3
-# ℹ 20 more rows</code></pre>
-</div>
-</div>
-<p><br></p>
-</section>
-<section id="bivariate-analysis-linear-regression-and-correlation-coefficient" class="level3">
-<h3 class="anchored" data-anchor-id="bivariate-analysis-linear-regression-and-correlation-coefficient"><strong>Bivariate Analysis | Linear regression and Correlation coefficient</strong></h3>
-<p><strong>Is there a dependency between the age and the weight of the mice in our study?</strong></p>
-<p>To test if two variables are correlated we will start by (1) making a scatter plot of these two variables, followed by a calculation of the Pearson correlation coefficient, and finally by fitting a linear model to the data to evaluate how the weight changes depending on the age of the mice.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the vectors with the variables of interest</span></span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>my.weight <span class="ot">&lt;-</span> mice_data<span class="sc">$</span>weight </span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>my.age <span class="ot">&lt;-</span> mice_data<span class="sc">$</span>age_months</span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Step1: scatter plot of age and weight </span></span>
-<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Note that the dependent variable is the weight, so it should be in the y axis, while the independent variable should be in the x axis.</span></span>
-<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mice_data<span class="sc">$</span>age_months, mice_data<span class="sc">$</span>weight,</span>
-<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Weight (g)"</span>,</span>
-<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Age (months)"</span>, </span>
-<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="dv">19</span>)  <span class="co"># character used for the points</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="tutorial_day1_files/figure-html/correlation-1.png" class="img-fluid" width="672"></p>
-</div>
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step2: Calculate the Pearson coefficient of correlation (r)</span></span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>my.correlation <span class="ot">&lt;-</span> <span class="fu">cor</span>(my.weight, my.age, <span class="at">method =</span> <span class="st">"pearson"</span>)</span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>my.correlation</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.9539404</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step3: fit a linear model (using the function lm) and </span></span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="co"># draw it on the scatter plot (using the function abline)</span></span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># </span><span class="al">NOTE</span><span class="co">: "my.weight ~ my.age" can be read as "my.weight is modeled as a function of my.age" or </span></span>
-<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># "my.weight is explained by my.age".</span></span>
-<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># When using lm() for linear regression, the "y ~ x" formula indicates that </span></span>
-<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># y is the dependent variable and x is the independent variable.</span></span>
-<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>my.lm <span class="ot">&lt;-</span> <span class="fu">lm</span> (my.weight <span class="sc">~</span> my.age)</span>
-<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the fitted line on the scatter plot</span></span>
-<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mice_data<span class="sc">$</span>age_months, mice_data<span class="sc">$</span>weight, </span>
-<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">"Weight (g) [Dependent variable]"</span>, <span class="at">xlab =</span> <span class="st">"Age (months) [Independent variable]"</span>, <span class="at">pch =</span> <span class="dv">19</span>, </span>
-<span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"lightgreen"</span>, <span class="dv">30</span>), <span class="fu">rep</span>(<span class="st">"orange"</span>, <span class="dv">30</span>)))   <span class="co"># color the points from lean and fat diet</span></span>
-<span id="cb56-14"><a href="#cb56-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-15"><a href="#cb56-15" aria-hidden="true" tabindex="-1"></a><span class="co"># add the line to the plot</span></span>
-<span id="cb56-16"><a href="#cb56-16" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(my.lm, <span class="at">col=</span><span class="st">"grey50"</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
-<span id="cb56-17"><a href="#cb56-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-18"><a href="#cb56-18" aria-hidden="true" tabindex="-1"></a><span class="co"># add a legend to the plot</span></span>
-<span id="cb56-19"><a href="#cb56-19" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="dv">30</span>, <span class="dv">14</span>, <span class="at">legend=</span><span class="fu">c</span>(<span class="st">"Lean diet"</span>, <span class="st">"Fat diet"</span>),</span>
-<span id="cb56-20"><a href="#cb56-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">col=</span><span class="fu">c</span>(<span class="st">"lightgreen"</span>, <span class="st">"orange"</span>), <span class="at">pch=</span><span class="dv">19</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="tutorial_day1_files/figure-html/correlation-2.png" class="img-fluid" width="672"></p>
-</div>
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Similar visualiztion using ggplot</span></span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>mice_data <span class="sc">%&gt;%</span></span>
-<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>age_months,<span class="at">y=</span>weight))<span class="sc">+</span></span>
-<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">fill=</span>diet), <span class="at">shape=</span><span class="dv">21</span>, <span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se=</span><span class="cn">TRUE</span>, <span class="at">color=</span><span class="st">"grey30"</span>) <span class="co"># se is the shaded confidence interval</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
-</div>
-<div class="cell-output-display">
-<p><img src="tutorial_day1_files/figure-html/correlation-3.png" class="img-fluid" width="672"></p>
-</div>
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Now making a linear fit per diet type</span></span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>mice_data <span class="sc">%&gt;%</span></span>
-<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x=</span>age_months,<span class="at">y=</span>weight))<span class="sc">+</span></span>
-<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">fill=</span>diet), <span class="at">shape=</span><span class="dv">21</span>, <span class="at">size=</span><span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">group=</span>diet, <span class="at">color=</span>diet),<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
-</div>
-<div class="cell-output-display">
-<p><img src="tutorial_day1_files/figure-html/correlation-4.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-<p><br></p>
-</section>
-<section id="hypothesis-testing-and-statistical-significance-using-r" class="level3">
-<h3 class="anchored" data-anchor-id="hypothesis-testing-and-statistical-significance-using-r"><strong>Hypothesis testing and Statistical significance using R</strong></h3>
-<p>Going back to our original question: <em>Does the type of diet influence the body weight of mice?</em><br>
-Can we answer this question just by looking at the plot? Are these observations compatible with a scenario where <strong>the type of diet does not influence body weight?</strong></p>
-<p>Remember the basic statistical methods:</p>
-<p><img src="images/statistic-types.png" class="img-fluid" width="600"></p>
-<p>Here enters <strong>hypothesis testing</strong>. In hypothesis testing, the investigator formulates a <strong>null hypothesis (H0)</strong> that usually states that <em>there is no difference between the two groups</em>, i.e.&nbsp;the observed weight differences between the two groups of mice occurred only due to sampling fluctuations (like when you repeat an experiment drawing samples from the same population). In other words, H0 corresponds to an absence of effect.<br>
-The <strong>alternative hypothesis (H1)</strong>, just states that the <em>effect is present between the two groups</em>, i.e.&nbsp;that the samples were taken from different populations.</p>
-<p>Hypothesis testing proceeds with using a <strong>statistical test to try and reject H0</strong>. For this experiment, we will use a <em>T-test that compares the difference between the means of the two diet groups</em>, yielding a p-value that we will use to decide if we reject the null hypothesis, at a 5% significance level (p-value &lt; 0.05). Meaning that, if we repeat this experiment 100 times in different mice, in 5 of those experiments we will reject the null hypothesis, even thought the null hypothesis is true.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Apply a T-test to the lean and fat diet weights </span></span>
-<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="do">### Explanation of the arguments used </span><span class="al">###</span></span>
-<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># alternative="two.sided" :  two-sided because we want to test any difference between the means, and not only weight gain or weight loss (in which case it would be a one-sided test)</span></span>
-<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># paired = FALSE : because we measured the weight in 2 different groups of mice (never the same individual). If we measure a variable 2 times in the same individual the data would be paired.</span></span>
-<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># var.equal = TRUE : T-tests apply to equal variance data, so we assume it is TRUE and ask R to estimate the variance (if we chose FALSE, then R uses another similar method called Welch (or Satterthwaite) approximation) </span></span>
-<span id="cb61-9"><a href="#cb61-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-10"><a href="#cb61-10" aria-hidden="true" tabindex="-1"></a>ttest <span class="ot">&lt;-</span> <span class="fu">t.test</span>(lean<span class="sc">$</span>weight, fat<span class="sc">$</span>weight,</span>
-<span id="cb61-11"><a href="#cb61-11" aria-hidden="true" tabindex="-1"></a>                <span class="at">alternative=</span><span class="st">"two.sided"</span>, </span>
-<span id="cb61-12"><a href="#cb61-12" aria-hidden="true" tabindex="-1"></a>                <span class="at">paired =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb61-13"><a href="#cb61-13" aria-hidden="true" tabindex="-1"></a>                <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb61-14"><a href="#cb61-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb61-15"><a href="#cb61-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the results</span></span>
-<span id="cb61-16"><a href="#cb61-16" aria-hidden="true" tabindex="-1"></a>ttest</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    Two Sample t-test
-
-data:  lean$weight and fat$weight
-t = -3.4197, df = 58, p-value = 0.001154
-alternative hypothesis: true difference in means is not equal to 0
-95 percent confidence interval:
- -6.550137 -1.713197
-sample estimates:
-mean of x mean of y 
- 20.36700  24.49867 </code></pre>
-</div>
-</div>
-<p><br></p>
-</section>
-<section id="now-that-we-have-calculated-the-t-test-shall-we-accept-or-reject-the-null-hypothesis-what-are-the-outputs-in-r-from-the-t-test" class="level3">
-<h3 class="anchored" data-anchor-id="now-that-we-have-calculated-the-t-test-shall-we-accept-or-reject-the-null-hypothesis-what-are-the-outputs-in-r-from-the-t-test">Now that we have calculated the T-test, shall we accept or reject the null hypothesis? What are the outputs in R from the t-test?</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the names of the output from the function t.test</span></span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(ttest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] "statistic"   "parameter"   "p.value"     "conf.int"    "estimate"   
- [6] "null.value"  "stderr"      "alternative" "method"      "data.name"  </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract just the p-value</span></span>
-<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>ttest<span class="sc">$</span>p.value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.00115364</code></pre>
-</div>
-</div>
-<p><br></p>
 </section>
 <section id="final-discussion" class="level3">
-<h3 class="anchored" data-anchor-id="final-discussion"><strong>Final discussion</strong></h3>
+<h3 class="anchored" data-anchor-id="final-discussion">Final discussion</h3>
 <blockquote class="blockquote">
 <blockquote class="blockquote">
 <p>Take some time to discuss the results with the other participants, and decide if H0 should be rejected or not, and how confident you are that your decision is reasonable. Can you propose solutions to improve your confidence on the results? Is the experimental design appropriate for the research question being asked? Is this experiment well controlled and balanced?</p>
