@@ -68,9 +68,9 @@ To learn more about data visualization and ggplot2, here are some additional res
 
 ### Illustrations from the web
 
-- <https://www.rforecology.com/post/a-simple-introduction-to-ggplot2/>
-- <https://rfortherestofus.github.io/fundamentals/slides/data-visualization-slides.html#4>    
-- <https://ouyanglab.com/covid19dataviz/ggplot2.html>    
+-   <https://www.rforecology.com/post/a-simple-introduction-to-ggplot2/>
+-   <https://rfortherestofus.github.io/fundamentals/slides/data-visualization-slides.html#4>\
+-   <https://ouyanglab.com/covid19dataviz/ggplot2.html>
 
 #### Tidy data
 
